@@ -8,12 +8,22 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     stats: 'verbose',
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     module: {
         rules: [
             {
                 test: '/\.js$/',
                 exclude: /node_modules/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.scss$/,
+                // Chained loaders run in order from right to left
+                //   <---- 3rd ----   <--- 2nd ---   <--- 1st ---
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             }
         ]
     },
